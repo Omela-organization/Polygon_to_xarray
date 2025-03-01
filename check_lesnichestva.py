@@ -6,8 +6,6 @@ import xarray as xr
 
 
 polygons = file_to_polygons('Lesnichestva PK.shp')# получение списка полигонов из файла Resrv_ALL.shp
-for i in polygons:
-    print(type(i))
 polygon = polygons[1]#записываем в переменную polygon один из списка полигонов
 
 
@@ -23,7 +21,7 @@ gdf = gpd.read_file('Lesnichestva PK.shp')#открываем файл
 column = gdf.columns.tolist()
 for index,row in gdf.iterrows():
     names_LV[row["NAME_LV"]] = index+1
-print(names_LV)
+
 
 for i in tqdm(range(len(chunks))):
     chunk = chunks[i]#записываем в chunk один из чанков
@@ -39,7 +37,5 @@ for i in tqdm(range(len(chunks))):
         data_row = []
 
 #полученную матрицу переводим в xarray
-for i in data:
-    print(i)
 dataframe = xr.DataArray(data, coords=[rows, columns], dims=['latitude', 'longitude'])
 print(dataframe)
