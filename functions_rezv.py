@@ -1,4 +1,5 @@
 import geopandas as gpd
+from shapely import MultiPolygon
 from shapely.geometry import Point,Polygon
 import numpy as np
 
@@ -18,18 +19,31 @@ def poly_to_bbox(polygon) -> tuple:
     max_lon = 0
     min_lon = float('inf')
     min_lat = float('inf')
-    iters = polygon.exterior.coords
-    for lon,lat in iters:
-        if lon < min_lon:
-            min_lon = lon
-        if lon > max_lon:
-            max_lon = lon
-        if lat < min_lat:
-            min_lat = lat
-        if lat > max_lat:
-            max_lat = lat
-    return (min_lon, min_lat, max_lon, max_lat)
-
+    if type(polygon) == Polygon:
+        iters = polygon.exterior.coords
+        for lon, lat in iters:
+            if lon < min_lon:
+                min_lon = lon
+            if lon > max_lon:
+                max_lon = lon
+            if lat < min_lat:
+                min_lat = lat
+            if lat > max_lat:
+                max_lat = lat
+        return (min_lon, min_lat, max_lon, max_lat)
+    if type(polygon) == MultiPolygon:
+        iters = list(polygon.geoms)
+        for i in iters:
+            for lon, lat in i.exterior.coords:
+                if lon < min_lon:
+                    min_lon = lon
+                if lon > max_lon:
+                    max_lon = lon
+                if lat < min_lat:
+                    min_lat = lat
+                if lat > max_lat:
+                    max_lat = lat
+        return (min_lon, min_lat, max_lon, max_lat)
 
 def chunk_to_poly(chunkk:list):#возвращает chunk в виде полигона
     """
