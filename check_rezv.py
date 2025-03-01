@@ -24,12 +24,15 @@ for i in tqdm(range(len(chunks))):
         value = 0#возвращаемое значение
         if row['geometry'].contains(poly):#если находим заданный чанк в файле меняем value на 1
             value = 1
-        data_row.append(value)#добавляем значение в строку матрицы
-        if (i+1)%(len(columns))==0 and i!=0:#если строка матрицы завершена: добавляем ее в матрицу и создаем следующую
-            data.append(data_row)
-            data_row = []
-        break
+            break
+    data_row.append(value)#добавляем значение в строку матрицы
+    if (i+1)%(len(columns))==0 and i!=0:#если строка матрицы завершена: добавляем ее в матрицу и создаем следующую
+        data.append(data_row)
+        data_row = []
+
 #полученную матрицу переводим в xarray
+for i in data:
+    print(i)
 dataframe = xr.DataArray(data, coords=[rows, columns], dims=['latitude', 'longitude'])
 print(dataframe)
 
