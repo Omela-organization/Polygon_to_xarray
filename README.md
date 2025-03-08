@@ -6,18 +6,18 @@
 ## split_bbox - Разделяет bounding box (bbox) на более мелкие чанки.
 # check_rezv, check_protect, check_lesnichestva 
 - Скрипты выгрузки соответсвующих xarray.
-Преобразование полигона:
+### Преобразование полигона:
 ## polygons - Список полигонов. type: list 
 ## polygon - Выбранный полигон. type: Polygon
 ## Bbox - Описаный около polygon прямоугольник. type: list
 ## chunks - Список чанков(частей) Bbox. type:list
 ## columns - Список долгот чанков. type:list
 ## rows - Список широт чанков. type:list
-Итерирование
+### Итерирование
 ## data - Матрица. type: list
 ## data_row - Строка матрицы. type: list
 ## gdf - class 'module'
 ## poly - Polygon
-Выгрузка
+### Выгрузка
 ## dataframe - <class 'xarray.core.dataarray.DataArray'> 
 
